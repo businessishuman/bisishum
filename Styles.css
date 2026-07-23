@@ -1,0 +1,693 @@
+/* =========================================================
+   BUSINESS IS HUMAN — STYLESHEET
+   Mobile-first. Fluid type + spacing. Bridges tablet via clamp().
+========================================================= */
+
+/* --- 1. GLOBAL ROOT VARIABLES --- */
+:root{
+  /* Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-bg-light: #F9F9F9;
+  --color-bg-card: #F5F5F5;
+  --color-accent-red: #ED4F4F;
+  --color-accent-blue: #4080FF;
+  --color-accent-green: #31E06F;
+  --color-grey-mid: #8A8A8A;
+  --color-grey-line: #E2E2E2;
+
+  /* Fluid type scale (Minor Third mobile -> Major Third desktop) */
+  --fs-legal:   clamp(0.694rem, 0.654rem + 0.17vw, 0.8rem);
+  --fs-small:   clamp(0.833rem, 0.736rem + 0.44vw, 1rem);
+  --fs-base:    clamp(1rem, 0.855rem + 0.66vw, 1.25rem);
+  --fs-menu:    clamp(1.2rem, 0.995rem + 0.93vw, 1.563rem);
+  --fs-card:    clamp(1.44rem, 1.157rem + 1.29vw, 1.953rem);
+  --fs-heading: clamp(1.728rem, 1.332rem + 1.8vw, 2.441rem);
+  --fs-display: clamp(2.074rem, 1.523rem + 2.5vw, 3.052rem);
+
+  --lh-tight:   1.2;
+  --lh-heading: 1.3;
+  --lh-base:    1.5;
+
+  /* 8px spacing system */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-xxl: 3rem;
+
+  /* Fluid outer page margin: mobile 24px -> desktop scales with viewport */
+  --page-margin: clamp(1.5rem, 0.9rem + 3vw, 4rem);
+  /* Responsive content ceiling so large desktop screens match design proportions */
+  --content-max: min(1400px, 92vw);
+
+  /* Explore: sidebar starts 144px from viewport edge, content ends at 1400px
+     (40px from the right edge) on a 1440px screen — asymmetric by design spec */
+  --explore-pad-left: clamp(24px, 10vw, 144px);
+  --explore-pad-right: clamp(16px, 2.8vw, 40px);
+
+  --navbar-height: 72px;
+  --ease-standard: cubic-bezier(.4,0,.2,1);
+}
+
+/* --- 2. BASE RESETS & GLOBAL UTILITIES --- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: 'Stack Sans Text', sans-serif;
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body.no-scroll{ overflow: hidden; height: 100vh; }
+
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+button{ font-family: inherit; cursor: pointer; }
+ul{ margin:0; padding:0; list-style:none; }
+h1,h2,h3,p{ margin:0; }
+
+h1,h2,h3,
+.hero__title, .explore__title, .committed__title,
+.get-started__title, .newsletter__title, .site-footer__headline{
+  font-family: 'Stack Sans Headline', sans-serif;
+  font-weight: 700;
+}
+
+.container{
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+:focus-visible{
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: 3px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 4px;
+  border: none;
+  font-family: 'Stack Sans Text', sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  transition: opacity .25s var(--ease-standard), transform .2s var(--ease-standard);
+}
+.btn:hover{ opacity: .82; }
+.btn:active{ transform: scale(.97); }
+.btn--dark{ background: var(--color-black); color: var(--color-white); }
+.btn--navbar{ background: rgba(255,255,255,.12); color: var(--color-white); padding: var(--space-sm) var(--space-lg); }
+
+/* --- 3. LAYOUT & STRUCTURAL WRAPPERS --- */
+
+/* NAVBAR */
+.navbar{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  background: var(--color-black);
+  height: var(--navbar-height);
+  transition: transform .4s var(--ease-standard);
+}
+.navbar__inner{
+  max-width: var(--content-max);
+  margin-inline: auto;
+  height: 100%;
+  padding-inline: var(--page-margin);
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+.navbar__brand{
+  display:flex;
+  align-items:center;
+  gap: var(--space-sm);
+  flex-shrink:0;
+}
+.navbar__mark{ filter: brightness(0) invert(1); }
+.navbar__wordmark{
+  color: var(--color-white);
+  font-family:'Stack Sans Headline', sans-serif;
+  font-weight:700;
+  font-size: var(--fs-small);
+  line-height: 1.15;
+}
+.navbar__links{
+  display:none;
+  gap: var(--space-xl);
+  flex:1;
+  justify-content:center;
+}
+.navbar__link{
+  color: var(--color-white);
+  font-size: var(--fs-small);
+  font-weight:500;
+  opacity:.9;
+  transition: opacity .2s;
+}
+.navbar__link:hover{ opacity:1; }
+.navbar__cta{ display:none; }
+
+.burger{
+  background:none;
+  border:none;
+  width: 32px;
+  height: 22px;
+  position:relative;
+  padding:0;
+  flex-shrink:0;
+}
+.burger__line{
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  background: var(--color-white);
+  transition: transform .3s var(--ease-standard), opacity .2s var(--ease-standard);
+}
+.burger__line:nth-child(1){ top: 4px; }
+.burger__line:nth-child(2){ bottom: 4px; }
+.burger.is-active .burger__line:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.burger.is-active .burger__line:nth-child(2){ transform: translateY(-5px) rotate(-45deg); }
+
+/* MOBILE OVERLAY */
+.mobile-overlay{
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0; right: 0; bottom: 0;
+  z-index: 400;   /* lower than navbar so the real navbar stays on top and stays interactive */
+  background: var(--color-white);
+  display:flex;
+  flex-direction:column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s var(--ease-standard), visibility 0s linear .3s;
+}
+.mobile-overlay.is-open{
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s var(--ease-standard), visibility 0s;
+}
+
+.mobile-overlay__nav{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap: var(--space-xl);
+}
+.mobile-overlay__link{
+  color: var(--color-black);
+  font-size: var(--fs-menu);
+  font-family:'Stack Sans Headline', sans-serif;
+  font-weight:600;
+}
+.mobile-overlay__cta{ margin-top: var(--space-md); }
+
+@media (min-width: 900px){
+  .navbar__links{ display:flex; }
+  .navbar__cta{ display:inline-flex; }
+  .burger{ display:none; }
+}
+
+/* --- 4. COMPONENT STYLES --- */
+
+/* HERO */
+.hero{
+  padding-top: var(--navbar-height);
+  background: var(--color-white);
+}
+.hero__stage{
+  position: relative;
+}
+.hero__image-wrap{
+  width: 100%;
+  height: clamp(240px, 62vw, 320px);
+  overflow:hidden;
+  background: var(--color-bg-card);
+}
+.hero__image{ width:100%; height:100%; object-fit: cover; }
+
+/* Mobile: card flows normally, pulled up over the image with a negative
+   margin — this keeps it in the document flow so the copy below always
+   stacks under it cleanly instead of being covered. */
+.hero__card{
+  width: min(300px, 68%);
+  aspect-ratio: 486 / 513;
+  margin-top: -15vw;
+  margin-left: var(--page-margin);
+  margin-bottom: var(--space-xl);
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: var(--space-lg);
+  display:flex;
+  align-items:flex-end;
+  position: relative;
+  z-index: 2;
+}
+.hero__title{
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  color: var(--color-white);
+}
+
+.hero__content{
+  max-width: var(--content-max);
+  margin-inline:auto;
+  padding-inline: var(--page-margin);
+  padding-bottom: var(--space-xxl);
+}
+.hero__card-spacer{ display:none; }
+.hero__copy{ max-width: 46ch; }
+.hero__lead{
+  font-size: var(--fs-base);
+  color: #333;
+  margin-bottom: var(--space-lg);
+}
+.hero__cta{ width: max-content; }
+
+@media (min-width: 900px){
+  .hero__image-wrap{ height:auto; aspect-ratio: 1440 / 273; }
+
+  /* Desktop: card overlaps the image via absolute positioning, anchored to
+     the same left edge as the content column below it (var(--page-margin))
+     so it always lines up with the copy regardless of viewport width. */
+  .hero__card{
+    position:absolute;
+    left: var(--page-margin);
+    top: 43%;
+    margin: 0;
+    width: min(486px, 33.75%);
+    padding: var(--space-xl);
+  }
+  .hero__card-spacer{
+    display:block;
+    flex-shrink:0;
+    width: min(486px, 33.75%);
+    aspect-ratio: 486 / 513;
+  }
+  .hero__content{
+    display:flex;
+    align-items:center;
+    gap: var(--space-xxl);
+    padding-top: var(--space-xl);
+  }
+  .hero__copy{ padding-bottom: var(--space-md); }
+  .hero__cta{ width: auto; }
+}
+
+/* EXPLORE
+   Reference spec at a 1440px screen:
+   sidebar 400x747 (bg #F9F9F9) | panel 856x747
+   panel image 797x178, centered
+   Method cards  517x135, stacked, panel bg #F5F5F5
+   Service cards 269x453 x3, edge-to-edge, panel bg #000
+   Stands cards  354x242 x2 + 729x214 promise, panel bg #F5F5F5
+*/
+.explore{
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-xxl);
+  max-width: var(--content-max);
+  margin-inline:auto;
+}
+.explore__title{
+  font-size: var(--fs-heading);
+  line-height: var(--lh-heading);
+  margin-bottom: var(--space-xl);
+}
+
+.explore__body{ display:block; }
+
+.explore__tabs{
+  display:flex;
+  gap: var(--space-xl);
+  overflow-x:auto;
+  scrollbar-width:none;
+  margin-bottom: var(--space-lg);
+}
+.explore__tabs::-webkit-scrollbar{ display:none; }
+.explore__tab{
+  background:none;
+  border:none;
+  white-space:nowrap;
+  font-size: var(--fs-small);
+  font-weight:600;
+  color: var(--color-black);
+  padding-bottom: var(--space-md);
+  position:relative;
+  opacity:.55;
+  text-align:left;
+  transition: opacity .2s;
+}
+.explore__tab::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-1px;
+  height:2px;
+  background: transparent;
+  transition: background .25s var(--ease-standard);
+}
+.explore__tab.is-active{ opacity:1; }
+.explore__tab--method.is-active::after{ background: var(--color-accent-red); }
+.explore__tab--services.is-active::after{ background: var(--color-accent-blue); }
+.explore__tab--stands.is-active::after{ background: var(--color-accent-green); }
+
+.explore__panel{ background: var(--color-bg-card); padding: var(--space-lg); }
+.explore__panel[hidden]{ display:none; }
+.explore__panel--dark{ background: var(--color-black); }
+.explore__panel-media{ margin-bottom: var(--space-lg); overflow:hidden; }
+.explore__panel-image{ width:100%; height: clamp(180px, 24vw, 280px); object-fit: cover; }
+
+/* ---- Card containers: mobile-first ---- */
+/* Method + Stands: simple full-width vertical stack, no scroll */
+.explore__cards{
+  display:flex;
+  flex-direction:column;
+  gap: var(--space-md);
+}
+.method-card, .service-card, .stands-card{
+  background: var(--color-white);
+  padding: var(--space-lg);
+  display:flex;
+  flex-direction:column;
+  gap: var(--space-sm);
+}
+.method-card__icon, .service-card__icon{ margin-bottom: var(--space-sm); }
+.method-card__title, .service-card__title, .stands-card__title{
+  font-size: var(--fs-card);
+  line-height: var(--lh-heading);
+}
+.method-card__desc{ font-size: var(--fs-small); color: #444; }
+
+/* Services: mobile horizontal scroll-snap rail (per spec) */
+.explore__cards--services{
+  display:flex;
+  flex-direction:row;
+  gap: var(--space-md);
+  overflow-x:auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+}
+.explore__cards--services .service-card{
+  scroll-snap-align: start;
+  flex: 0 0 82%;
+  background: var(--color-white);
+  min-height: 320px;
+  justify-content:flex-start;
+}
+.service-card__list{ margin-top: auto; display:flex; flex-direction:column; gap: var(--space-xs); }
+.service-card__list li{ font-size: var(--fs-small); color: var(--color-black); }
+
+/* Stands cards: title has a rule beneath it, coloured to match the panel bg */
+.stands-card{ background: var(--color-white); }
+.stands-card__title{
+  padding-bottom: var(--space-md);
+  border-bottom: 5px solid var(--color-bg-card);
+  margin-bottom: var(--space-sm);
+  margin-inline: calc(-1 * var(--space-lg));   /* cancel the card's own side padding */
+  padding-inline: var(--space-lg);              /* put it back so text stays aligned */
+}
+.stands-card__row{ display:flex; align-items:center; gap: var(--space-sm); }
+.stands-card__desc{ font-size: var(--fs-small); }
+.stands-card__break{ display:none; }
+/* Sidebar layout only kicks in once there's genuinely enough room for it —
+   below this, the simpler top-tab mobile layout (already fully fluid) carries
+   through, which avoids the cramped/overflowing mid-size squeeze. */
+@media (min-width: 1100px){
+  /* Sidebar-left layout: fixed-width menu column, content column on the right,
+     stretched to equal height so nothing needs its own scrollbar */
+  .explore__body{
+    display:grid;
+    grid-template-columns: minmax(220px, 400px) minmax(0, 1fr);
+    gap: var(--space-xxl);
+    align-items: stretch;
+  }
+  .explore__tabs{
+    flex-direction:column;
+    align-items:flex-start;
+    gap: var(--space-lg);
+    border-bottom:none;
+    overflow:visible;
+    margin-bottom:0;
+    background: var(--color-bg-light);
+    padding: var(--space-xxl) var(--space-xl);
+    height: 100%;
+  }
+  .explore__tab{
+    font-size: var(--fs-menu);
+    padding-bottom: var(--space-xs);
+    white-space: normal;   /* let long labels wrap instead of overflowing the sidebar */
+    width: fit-content;
+  }
+  .explore__tab::after{ right: auto; width: 100%; }
+  /* Every panel reserves the same height regardless of which tab is active,
+     so switching tabs never resizes the module. */
+  .explore__panels{
+    min-height: clamp(560px, 48vw, 747px);
+    position: relative;
+  }
+  .explore__panel{
+    padding: var(--space-xl) 0 var(--space-xl);
+    background: var(--color-bg-card);
+    display:flex;
+    flex-direction:column;
+    height: 100%;
+    min-height: clamp(560px, 48vw, 747px);
+    box-sizing: border-box;
+  }
+  .explore__panel--dark{ background: var(--color-black); }
+  .explore__panel-media{
+    margin-bottom: var(--space-lg);
+    width: 93.1%;         /* 797 / 856 */
+    margin-inline: auto;
+    flex: 0 0 auto;
+  }
+  .explore__panel-image{ aspect-ratio: 797 / 178; height:auto; width:100%; }
+
+  /* ---- Human Method: centered column, cards stacked and stretched to fill ---- */
+  .explore__cards{
+    width: 60.4%;          /* 517 / 856 */
+    margin-inline: auto;
+    flex: 1 1 auto;
+    flex-direction:column;
+    gap: var(--space-md);
+    min-height: 0;
+  }
+  .method-card{
+    flex: 1 1 0;
+    justify-content:center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-xl);
+    min-height: 0;
+    overflow: hidden;
+  }
+  .method-card__icon{ width:22px; height:22px; margin-bottom:0; flex-shrink:0; }
+
+  /* ---- Services: spread to match the image width above, fills remaining panel height ---- */
+  .explore__cards--services{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+    overflow:visible;
+    padding:0;
+    width: 93.1%;            /* matches the image width, not edge-to-edge */
+    margin-inline: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .explore__cards--services .service-card{
+    min-height: 0;
+    min-width: 0;
+    flex: initial;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* ---- What it stands for: inset row of two + full-width promise, fills remaining height ---- */
+  .explore__cards--stands{
+    width: 85.16%;          /* 729 / 856 */
+    margin-inline:auto;
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 1fr auto;
+    gap: var(--space-md);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .stands-card{ justify-content:center; min-height: 0; min-width: 0; overflow:hidden; }
+  .stands-card--promise{
+    grid-column: 1 / -1;
+    text-align:center;
+  }
+  .stands-card--promise .stands-card__title{ text-align:center; }
+  .stands-card__row--center{
+    flex-direction:column;
+    gap: var(--space-xs);
+    align-items:center;
+  }
+  .stands-card__break{ display:inline; }
+}
+
+/* COMMITTED */
+
+.committed{
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-xxl);
+  max-width: var(--content-max);
+  margin-inline:auto;
+  text-align:center;
+}
+.committed__title{ font-size: var(--fs-display); line-height: var(--lh-tight); margin-bottom: var(--space-sm); }
+.committed__subtitle{ font-size: var(--fs-base); color: #555; margin-bottom: var(--space-xxl); }
+.committed__values{
+  display:flex;
+  flex-direction:column;
+  gap: var(--space-xl);
+  align-items:center;
+}
+.value-item{ display:flex; align-items:flex-start; gap: var(--space-md); text-align:left; }
+.value-item__title{ font-size: var(--fs-menu); margin-bottom: var(--space-xs); }
+.value-item__desc{ font-size: var(--fs-small); color:#555; }
+
+@media (min-width: 700px){
+  .committed__values{ flex-direction:row; justify-content:center; gap: var(--space-xxl); }
+}
+
+/* GET STARTED FORM */
+.get-started{
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-xxl);
+  max-width: 620px;
+  margin-inline:auto;
+  text-align:center;
+}
+.get-started__mark{ margin-inline:auto; margin-bottom: var(--space-md); }
+.get-started__title{ font-size: var(--fs-heading); line-height: var(--lh-heading); margin-bottom: var(--space-md); }
+.get-started__subtitle{ font-size: var(--fs-base); color:#444; margin-bottom: var(--space-xl); }
+
+/* --- 5. FORMS & INPUT FIELD STYLES --- */
+.form{ display:flex; flex-direction:column; gap: var(--space-md); text-align:left; }
+.form__field{ position:relative; }
+.form__input{
+  width:100%;
+  border: none;
+  background: var(--color-bg-card);
+  padding: var(--space-md);
+  font-size: var(--fs-base);
+  font-family:'Stack Sans Text', sans-serif;
+  color: var(--color-black);
+  border-radius: 2px;
+}
+.form__input::placeholder{ color: #A8A8A8; }
+.form__input--textarea{ resize: vertical; min-height: 100px; }
+.form__input.is-invalid{ outline: 2px solid var(--color-accent-red); }
+.form__error{ display:block; min-height: 1.1em; font-size: var(--fs-legal); color: var(--color-accent-red); margin-top: var(--space-xs); }
+
+.form__submit{ position:relative; margin-top: var(--space-sm); width:100%; }
+.form__spinner{
+  display:none;
+  width:16px; height:16px;
+  margin-left: var(--space-sm);
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: var(--color-white);
+  border-radius:50%;
+  animation: spin .7s linear infinite;
+}
+.form__submit.is-loading .form__spinner{ display:inline-block; }
+.form__submit.is-loading .form__submit-label{ opacity:.7; }
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+.form__status{ font-size: var(--fs-small); min-height: 1.4em; }
+.form__status.is-success{ color: var(--color-accent-green); }
+.form__status.is-error{ color: var(--color-accent-red); }
+
+.form--inline{ flex-direction: row; align-items:flex-start; gap: var(--space-md); flex-wrap: wrap; }
+.form__field--underline{ flex:1; min-width: 200px; }
+.form__input--underline{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.4);
+  color: var(--color-white);
+  padding: var(--space-sm) 0;
+  border-radius:0;
+}
+.form__input--underline::placeholder{ color: rgba(255,255,255,.5); }
+.form__submit--inline{ width:auto; margin-top:0; }
+
+/* REVEAL STAGE — parallax footer reveal.
+   The newsletter is pinned (sticky) underneath the footer. The footer scrolls
+   over it in normal document flow, then continues scrolling up and off,
+   uncovering the newsletter that was sitting still behind it the whole time. */
+.reveal-stage{
+  position: relative;
+}
+.newsletter{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 100vh;
+  background: var(--color-white);
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-xxl);
+  max-width: 560px;
+  margin-inline:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.newsletter__mark{ margin-bottom: var(--space-md); }
+.newsletter__title{ font-size: var(--fs-heading); margin-bottom: var(--space-sm); }
+.newsletter__desc{ font-size: var(--fs-base); color:#444; margin-bottom: var(--space-lg); }
+
+.site-footer{
+  position: relative;
+  z-index: 510;
+  background: var(--color-black);
+  color: var(--color-white);
+  min-height: 100vh;
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-xxl);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.site-footer__headline{
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  color: var(--color-white);
+  max-width: 14ch;
+}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  border-top: 1px solid rgba(255,255,255,.15);
+  padding-top: var(--space-xl);
+  margin-top: var(--space-xxl);
+}
+.site-footer__mark{ filter: brightness(0) invert(1); margin-bottom: var(--space-sm); }
+.site-footer__name{ font-weight:600; font-size: var(--fs-small); }
+.site-footer__tagline{ font-size: var(--fs-small); color: rgba(255,255,255,.65); margin-block: var(--space-sm); max-width: 32ch; }
+.site-footer__copyright{ font-size: var(--fs-legal); color: rgba(255,255,255,.4); }
+.site-footer__label{ font-size: var(--fs-legal); color: rgba(255,255,255,.5); text-transform:uppercase; letter-spacing: .04em; margin-bottom: var(--space-sm); font-family:'Stack Sans Text', sans-serif; font-weight:600; }
+.site-footer__link{ display:block; font-size: var(--fs-small); margin-bottom: var(--space-xs); color: var(--color-white); }
+.site-footer__link--muted{ color: rgba(255,255,255,.5); }
+
+@media (min-width: 800px){
+  .site-footer__grid{ grid-template-columns: 2fr 1fr 1fr; }
+}

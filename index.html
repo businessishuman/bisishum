@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business is Human.</title>
+<link rel="icon" href="assets/icons/favicon-placeholder.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+<header class="navbar" id="navbar">
+  <div class="navbar__inner">
+    <a href="#top" class="navbar__brand">
+      <img src="assets/icons/logo-mark.svg" alt="" class="navbar__mark" width="28" height="28">
+      <span class="navbar__wordmark">Business<br>is Human.</span>
+    </a>
+
+    <nav class="navbar__links" aria-label="Primary">
+      <a href="#top" class="navbar__link">Home</a>
+      <a href="#journal" class="navbar__link">Journal</a>
+      <a href="#about" class="navbar__link">About</a>
+    </nav>
+
+    <a href="#get-started" class="btn btn--navbar navbar__cta">Get Started</a>
+
+    <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileOverlay">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- =====================================================
+     MOBILE FULLSCREEN NAV OVERLAY
+===================================================== -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+  <nav class="mobile-overlay__nav" aria-label="Mobile Primary">
+    <a href="#top" class="mobile-overlay__link js-mobile-link">Home</a>
+    <a href="#about" class="mobile-overlay__link js-mobile-link">About</a>
+    <a href="#journal" class="mobile-overlay__link js-mobile-link">Journal</a>
+    <a href="#get-started" class="btn btn--dark mobile-overlay__cta js-mobile-link">Get started</a>
+  </nav>
+</div>
+
+<main id="top">
+
+  <!-- =====================================================
+       HERO
+  ===================================================== -->
+  <section class="hero">
+    <div class="hero__stage">
+      <div class="hero__image-wrap">
+        <img src="assets/images/hero-wristband.jpg" alt="Close up of a wristband reading Business is Human worn on a wrist" class="hero__image">
+      </div>
+      <div class="hero__card">
+        <h1 class="hero__title">Business<br>will always<br>be<br>Human.</h1>
+      </div>
+    </div>
+
+    <div class="hero__content">
+      <div class="hero__card-spacer" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="hero__lead">Formulating the conditions for people to thrive and businesses to be remembered.</p>
+        <a href="#get-started" class="btn btn--dark hero__cta">Get started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EXPLORE
+  ===================================================== -->
+  <section class="explore" id="explore">
+    <h2 class="explore__title">Explore</h2>
+
+    <div class="explore__body">
+    <div class="explore__tabs" role="tablist" aria-label="Explore sections">
+      <button class="explore__tab explore__tab--method is-active" role="tab" aria-selected="true" aria-controls="panel-method" id="tab-method" data-target="panel-method">
+        The Human Method
+      </button>
+      <button class="explore__tab explore__tab--services" role="tab" aria-selected="false" aria-controls="panel-services" id="tab-services" data-target="panel-services">
+        The Services
+      </button>
+      <button class="explore__tab explore__tab--stands" role="tab" aria-selected="false" aria-controls="panel-stands" id="tab-stands" data-target="panel-stands">
+        What it stands for?
+      </button>
+    </div>
+
+    <div class="explore__panels">
+    <!-- PANEL: THE HUMAN METHOD -->
+    <div class="explore__panel is-active" id="panel-method" role="tabpanel" aria-labelledby="tab-method">
+      <div class="explore__panel-media">
+        <img src="assets/images/method-photo.jpg" alt="Coffee cup and Business is Human folder on a red stool" class="explore__panel-image">
+      </div>
+
+      <div class="explore__cards" data-scroll-group>
+        <article class="method-card">
+          <img src="assets/icons/immerse.svg" alt="" class="method-card__icon" width="28" height="28">
+          <h3 class="method-card__title">Immerse</h3>
+          <p class="method-card__desc">Working beside people to understand and support projects</p>
+        </article>
+        <article class="method-card">
+          <img src="assets/icons/prioritise.svg" alt="" class="method-card__icon" width="28" height="28">
+          <h3 class="method-card__title">Prioritise</h3>
+          <p class="method-card__desc">Focusing on changes that turn expectations into results</p>
+        </article>
+        <article class="method-card">
+          <img src="assets/icons/empower.svg" alt="" class="method-card__icon" width="28" height="28">
+          <h3 class="method-card__title">Empower</h3>
+          <p class="method-card__desc">Equipping people to move forward with confidence</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- PANEL: THE SERVICES -->
+    <div class="explore__panel explore__panel--dark" id="panel-services" role="tabpanel" aria-labelledby="tab-services" hidden>
+      <div class="explore__panel-media">
+        <img src="assets/images/services-photo.jpg" alt="Business is Human folder resting on a black leather chair" class="explore__panel-image">
+      </div>
+
+      <div class="explore__cards explore__cards--services" data-scroll-group>
+        <article class="service-card">
+          <img src="assets/icons/business.svg" alt="" class="service-card__icon" width="28" height="28">
+          <h3 class="service-card__title">Business</h3>
+          <ul class="service-card__list">
+            <li>Plannings</li>
+            <li>Operating procedures</li>
+            <li>Location scoutings</li>
+            <li>Layouts &amp; planograms</li>
+          </ul>
+        </article>
+        <article class="service-card">
+          <img src="assets/icons/identity.svg" alt="" class="service-card__icon" width="28" height="28">
+          <h3 class="service-card__title">Identity</h3>
+          <ul class="service-card__list">
+            <li>Creative direction</li>
+            <li>Design &amp; Web Development</li>
+            <li>Print assets</li>
+            <li>Presentations</li>
+          </ul>
+        </article>
+        <article class="service-card">
+          <img src="assets/icons/people.svg" alt="" class="service-card__icon" width="28" height="28">
+          <h3 class="service-card__title">People</h3>
+          <ul class="service-card__list">
+            <li>Performance frameworks</li>
+            <li>Coaching</li>
+            <li>Mentoring</li>
+            <li>Training workshops</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <!-- PANEL: WHAT IT STANDS FOR -->
+    <div class="explore__panel" id="panel-stands" role="tabpanel" aria-labelledby="tab-stands" hidden>
+      <div class="explore__panel-media">
+        <img src="assets/images/stands-photo.jpg" alt="Person standing beside the mission, vision and promise text panel" class="explore__panel-image">
+      </div>
+
+      <div class="explore__cards explore__cards--stands" data-scroll-group>
+        <article class="stands-card">
+          <h3 class="stands-card__title">The mission</h3>
+          <div class="stands-card__row">
+            <img src="assets/icons/flag.svg" alt="" class="stands-card__icon" width="22" height="22">
+            <p class="stands-card__desc">Making growth the inevitable consequence</p>
+          </div>
+        </article>
+        <article class="stands-card">
+          <h3 class="stands-card__title">The vision</h3>
+          <div class="stands-card__row">
+            <img src="assets/icons/bulb.svg" alt="" class="stands-card__icon" width="22" height="22">
+            <p class="stands-card__desc">Building businesses worth remembering</p>
+          </div>
+        </article>
+        <article class="stands-card stands-card--promise">
+          <h3 class="stands-card__title stands-card__title--center">The Promise</h3>
+          <div class="stands-card__row stands-card__row--center">
+            <img src="assets/icons/gift.svg" alt="" class="stands-card__icon" width="22" height="22">
+            <p class="stands-card__desc">Contracted to your goals, <br class="stands-card__break">not your clock</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    </div><!-- /explore__panels -->
+    </div><!-- /explore__body -->
+  </section>
+
+  <!-- =====================================================
+       COMMITTED
+  ===================================================== -->
+  <section class="committed">
+    <h2 class="committed__title">Committed</h2>
+    <p class="committed__subtitle">Contracted to your goal, not to your clock.</p>
+
+    <div class="committed__values">
+      <div class="value-item">
+        <img src="assets/icons/integrity.svg" alt="" class="value-item__icon" width="32" height="32">
+        <div>
+          <h3 class="value-item__title">Integrity</h3>
+          <p class="value-item__desc">Practicing what feels right</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <img src="assets/icons/adaptability.svg" alt="" class="value-item__icon" width="32" height="32">
+        <div>
+          <h3 class="value-item__title">Adaptability</h3>
+          <p class="value-item__desc">≠ situations ≠ solutions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GET STARTED FORM
+  ===================================================== -->
+  <section class="get-started" id="get-started">
+    <img src="assets/icons/logo-mark.svg" alt="" class="get-started__mark" width="32" height="32">
+    <h2 class="get-started__title">Get started</h2>
+    <p class="get-started__subtitle">
+      Share your first name, email address and inquiry.<br>
+      You'll receive a response within 2 days (weekend inc.)
+    </p>
+
+    <form class="form" id="getStartedForm" novalidate>
+      <div class="form__field">
+        <input type="text" id="gs-name" name="name" class="form__input" placeholder="First name" required autocomplete="given-name">
+        <span class="form__error" data-error-for="gs-name"></span>
+      </div>
+      <div class="form__field">
+        <input type="email" id="gs-email" name="email" class="form__input" placeholder="Email address" required autocomplete="email">
+        <span class="form__error" data-error-for="gs-email"></span>
+      </div>
+      <div class="form__field">
+        <textarea id="gs-message" name="message" class="form__input form__input--textarea" placeholder="What's your challenge" required rows="4"></textarea>
+        <span class="form__error" data-error-for="gs-message"></span>
+      </div>
+
+      <button type="submit" class="btn btn--dark form__submit">
+        <span class="form__submit-label">Send</span>
+        <span class="form__spinner" aria-hidden="true"></span>
+      </button>
+
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <!-- =====================================================
+       FOOTER (parallax reveal) + NEWSLETTER
+  ===================================================== -->
+  <div class="reveal-stage" id="revealStage">
+    <!-- Newsletter sits pinned underneath; the footer slides up over it as the
+         page scrolls, then continues scrolling away to reveal it (parallax reveal). -->
+    <section class="newsletter" id="newsletter">
+      <img src="assets/icons/logo-mark.svg" alt="" class="newsletter__mark" width="26" height="26">
+      <h2 class="newsletter__title">Newsletter</h2>
+      <p class="newsletter__desc">Subscribe to receive business and people insights to operate and manage successfully.</p>
+
+      <form class="form form--inline" id="newsletterForm" novalidate>
+        <div class="form__field form__field--underline">
+          <input type="email" id="nl-email" name="email" class="form__input form__input--underline" placeholder="Email address" required autocomplete="email">
+          <span class="form__error" data-error-for="nl-email"></span>
+        </div>
+        <button type="submit" class="btn btn--dark form__submit form__submit--inline">
+          <span class="form__submit-label">Subscribe</span>
+          <span class="form__spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="site-footer" id="siteFooter">
+      <h2 class="site-footer__headline">Better questions<br>lead to<br>better businesses.</h2>
+
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <img src="assets/icons/logo-mark-white.svg" alt="" class="site-footer__mark" width="24" height="24">
+          <p class="site-footer__name">Business is Human.</p>
+          <p class="site-footer__tagline">Establishing the conditions for people to thrive and business to be remembered</p>
+          <p class="site-footer__copyright">© 2026 Business is Human. All rights reserved.</p>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__label">Navigation</h3>
+          <a href="#top" class="site-footer__link">Home</a>
+          <a href="#journal" class="site-footer__link">Journal</a>
+          <a href="#about" class="site-footer__link">About</a>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__label">Contact</h3>
+          <a href="mailto:hello@businessishuman.com.au" class="site-footer__link">hello@businessishuman.com.au</a>
+          <a href="tel:+61424909357" class="site-footer__link">+61 424 909 357</a>
+          <span class="site-footer__link site-footer__link--muted">Melbourne, Australia</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
