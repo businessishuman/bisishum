@@ -226,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ----------------------------------------------------- */
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.normalizeScroll(true);   // ← add this line, fixes mobile viewport jumpiness
 
     const revealTargets = document.querySelectorAll(
       '.method-card, .service-card, .stands-card, .value-item, .explore__panel-media'
@@ -245,11 +246,14 @@ document.addEventListener('DOMContentLoaded', () => {
    6. FOOTER REVEAL (footer slides up off a pinned stage)
 ----------------------------------------------------- */
 if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
+
   const footerEl = document.querySelector('.site-footer');
   const revealStageEl = document.querySelector('.reveal-stage');
 
   if (footerEl && revealStageEl) {
-    gsap.to(footerEl, {
+    const st = gsap.to(footerEl, {
       yPercent: -100,
       ease: 'none',
       scrollTrigger: {
@@ -257,10 +261,15 @@ if (window.gsap && window.ScrollTrigger) {
         start: 'top top',
         end: '+=100%',
         pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true
+        scrub: true,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const spacer = self.pin ? self.pin.parentNode : null;
+          const target = spacer && spacer.classList.contains('pin-spacer') ? spacer : revealStageEl;
+          target.style.zIndex = self.progress < 0.999 ? '600' : '490';
+        }
       }
-    });
+    }).scrollTrigger;
   }
 }
 
