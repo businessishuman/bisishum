@@ -678,14 +678,15 @@ h1,h2,h3,
    uncovering the newsletter that was sitting still behind it the whole time. */
 .reveal-stage{
   position: relative;
-  /* height: 100svh; */
-  /* overflow: hidden; */
-  /* z-index: 490;  */
+  height: 100svh;
+  overflow: hidden;
+  z-index: 490; 
 }
 
 .newsletter{
-  position: relative;   /* was absolute; inset:0 */
-  top: var(--navbar-height);   /* keep this if you still want it clear of the navbar, or remove if not needed in normal flow */
+  position: absolute;
+  top: var(--navbar-height);
+  left: 0; right: 0; bottom: 0;
   z-index: 1;
   background: var(--color-white);
   padding-inline: var(--page-margin);
@@ -697,13 +698,15 @@ h1,h2,h3,
   justify-content:center;
 }
 
+
 .newsletter__mark{ margin-bottom: var(--space-md); }
 .newsletter__title{ font-size: var(--fs-heading); margin-bottom: var(--space-sm); }
 .newsletter__desc{ font-size: var(--fs-base); color:#444; margin-bottom: var(--space-lg); }
 
 .site-footer{
-  position: relative;   /* was absolute; inset:0 */
-  z-index: 1;            /* no longer needs to beat the navbar */
+  position: absolute;
+  inset: 0;
+  z-index: 510;
   background: var(--color-black);
   color: var(--color-white);
   padding-inline: var(--page-margin);
@@ -711,6 +714,7 @@ h1,h2,h3,
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  overflow-y: auto;
 }
 .site-footer__headline{
   font-size: var(--fs-display);
