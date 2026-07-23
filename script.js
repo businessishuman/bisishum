@@ -241,5 +241,27 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
   }
+/* -----------------------------------------------------
+   6. FOOTER REVEAL (footer slides up off a pinned stage)
+----------------------------------------------------- */
+if (window.gsap && window.ScrollTrigger) {
+  const footerEl = document.querySelector('.site-footer');
+  const revealStageEl = document.querySelector('.reveal-stage');
+
+  if (footerEl && revealStageEl) {
+    gsap.to(footerEl, {
+      yPercent: -100,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: revealStageEl,
+        start: 'top top',
+        end: '+=100%',
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+}
 
 });
