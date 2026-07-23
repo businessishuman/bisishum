@@ -53,7 +53,7 @@
 
 /* --- 2. BASE RESETS & GLOBAL UTILITIES --- */
 *, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+/* html{ scroll-behavior: smooth; } */
 body{
   margin:0;
   background: var(--color-white);
