@@ -265,7 +265,6 @@ h1,h2,h3,
 }
 
 .hero__content{
-  max-width: var(--content-max);
   margin-inline:auto;
   padding-inline: var(--page-margin);
   padding-bottom: var(--space-xxl);
@@ -300,6 +299,7 @@ h1,h2,h3,
     aspect-ratio: 486 / 513;
   }
   .hero__content{
+    max-width: var(--content-max);
     display:flex;
     align-items:center;
     gap: var(--space-xxl);
@@ -651,12 +651,14 @@ h1,h2,h3,
    uncovering the newsletter that was sitting still behind it the whole time. */
 .reveal-stage{
   position: relative;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 520;      /* ← add this: beats navbar's z-index:500 once pinned to fixed */
 }
 .newsletter{
-  position: sticky;
-  top: 0;
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  min-height: 100vh;
   background: var(--color-white);
   padding-inline: var(--page-margin);
   padding-block: var(--space-xxl);
@@ -671,16 +673,17 @@ h1,h2,h3,
 .newsletter__desc{ font-size: var(--fs-base); color:#444; margin-bottom: var(--space-lg); }
 
 .site-footer{
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 510;
   background: var(--color-black);
   color: var(--color-white);
-  min-height: 100vh;
   padding-inline: var(--page-margin);
   padding-block: var(--space-xxl);
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  overflow-y: auto;   /* in case footer content is ever taller than one viewport */
 }
 .site-footer__headline{
   font-size: var(--fs-display);
