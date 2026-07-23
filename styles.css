@@ -320,9 +320,9 @@ h1,h2,h3,
 .explore{
   padding-inline: var(--page-margin);
   padding-block: var(--space-xxl);
-  max-width: var(--content-max);
-  margin-inline:auto;
+  margin-inline: auto;
 }
+
 .explore__title{
   font-size: var(--fs-heading);
   line-height: var(--lh-heading);
@@ -337,7 +337,14 @@ h1,h2,h3,
   overflow-x:auto;
   scrollbar-width:none;
   margin-bottom: var(--space-lg);
+  background: var(--color-bg-light);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-inline: var(--page-margin);
+  padding-block: var(--space-md);
 }
+
 .explore__tabs::-webkit-scrollbar{ display:none; }
 .explore__tab{
   background:none;
@@ -398,11 +405,14 @@ h1,h2,h3,
   flex-direction:row;
   gap: var(--space-md);
   overflow-x:auto;
+  overflow-y: hidden;        /* ← add: belt and suspenders */
+  touch-action: pan-x;       /* ← add: locks gesture to horizontal */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: var(--space-sm);
-  scrollbar-width: thin;
+  scrollbar-width: thin;     /* ← change from 'thin' — see below */
 }
+.explore__cards--services::-webkit-scrollbar{ display:none; }
 .explore__cards--services .service-card{
   scroll-snap-align: start;
   flex: 0 0 82%;
@@ -431,6 +441,8 @@ h1,h2,h3,
 @media (min-width: 1100px){
   /* Sidebar-left layout: fixed-width menu column, content column on the right,
      stretched to equal height so nothing needs its own scrollbar */
+  .explore{ max-width: var(--content-max); }
+
   .explore__body{
     display:grid;
     grid-template-columns: minmax(220px, 400px) minmax(0, 1fr);
@@ -445,9 +457,13 @@ h1,h2,h3,
     overflow:visible;
     margin-bottom:0;
     background: var(--color-bg-light);
+    width: auto;                 /* ← add: cancel the 100vw bleed */
+    margin-left: 0;              /* ← add: cancel the vw pull */
+    margin-right: 0;             /* ← add: cancel the vw pull */
     padding: var(--space-xxl) var(--space-xl);
     height: 100%;
   }
+
   .explore__tab{
     font-size: var(--fs-menu);
     padding-bottom: var(--space-xs);
